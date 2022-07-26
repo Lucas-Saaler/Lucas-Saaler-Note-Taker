@@ -56,8 +56,8 @@ const deleteNote = (id) =>
 // Will render a note from the left into the right column
 const renderActiveNote = () => {
   hide(saveNoteBtn);
-  // Checks to see if the active note has a title before populating
-  if (activeNote.title) {
+  // Checks to see if the active note's ID before populating
+  if (activeNote.id) {
     noteTitle.setAttribute('readonly', true);
     noteText.setAttribute('readonly', true);
     noteTitle.value = activeNote.title;
