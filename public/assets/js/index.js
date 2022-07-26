@@ -25,6 +25,7 @@ const hide = (elem) => {
 // activeNote is used to keep track of the note in the textarea
 let activeNote = {};
 
+// Calls a GET operation to /api/notes
 const getNotes = () =>
   fetch('/api/notes', {
     method: 'GET',
@@ -33,6 +34,7 @@ const getNotes = () =>
     },
   });
 
+// Saves the note via POST operation
 const saveNote = (note) =>
   fetch('/api/notes', {
     method: 'POST',
@@ -42,6 +44,7 @@ const saveNote = (note) =>
     body: JSON.stringify(note),
   });
 
+// Will have functionality in the future. Currently does nothing
 const deleteNote = (id) =>
   fetch(`/api/notes/${id}`, {
     method: 'DELETE',
@@ -50,13 +53,16 @@ const deleteNote = (id) =>
     },
   });
 
+// Will render a note from the left into the right column
 const renderActiveNote = () => {
   hide(saveNoteBtn);
+  // Checks to see if the active note has a title before populating
   if (activeNote.title) {
     noteTitle.setAttribute('readonly', true);
     noteText.setAttribute('readonly', true);
     noteTitle.value = activeNote.title;
     noteText.value = activeNote.text;
+    // Will make the input areas blank if the plus button is pressed 
   } else {
     noteTitle.removeAttribute('readonly');
     noteText.removeAttribute('readonly');
@@ -65,12 +71,15 @@ const renderActiveNote = () => {
   }
 };
 
+// Defines the note's title and value
 const handleNoteSave = () => {
   const newNote = {
     title: noteTitle.value,
     text: noteText.value,
   };
+  // Calls save function
   saveNote(newNote).then(() => {
+    // Renders notes
     getAndRenderNotes();
     renderActiveNote();
   });
@@ -153,10 +162,12 @@ const renderNoteList = async (notes) => {
     return liEl;
   };
 
+  // Populates the left column with a placeholder
   if (jsonNotes.length === 0) {
     noteListItems.push(createLi('No saved Notes', false));
   }
 
+  // Lists the saved notes
   jsonNotes.forEach((note) => {
     const li = createLi(note.title);
     li.dataset.note = JSON.stringify(note);
@@ -179,4 +190,5 @@ if (window.location.pathname === '/notes') {
   noteText.addEventListener('keyup', handleRenderSaveBtn);
 }
 
+// Called on page load
 getAndRenderNotes();
