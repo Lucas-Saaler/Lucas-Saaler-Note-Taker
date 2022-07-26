@@ -4,7 +4,7 @@
 
 This website will allow the user to take notes and save them as persistent data in order to look back on them whenever they want.
 
-## Table of Contents (Optional)
+## Table of Contents
 
 - [Usage](#usage)
 - [Credits](#credits)
